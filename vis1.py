@@ -24,10 +24,18 @@ def get_data_from_firebase():
         return {}
 
 data = get_data_from_firebase()
-df = pd.DataFrame(data).T
-df["age"] = pd.to_numeric(df["age"])
-df["height"] = pd.to_numeric(df["height"])
-df["weight"] = pd.to_numeric(df["weight"])
+st.write(data)  # Debugging output
+
+#data = get_data_from_firebase()
+if isinstance(data, dict) and data:  # Ensure it's a non-empty dictionary
+    df = pd.DataFrame(data).T
+else:
+    st.error("No valid data received from Firebase")
+    df = pd.DataFrame()  # Empty DataFrame
+df["age"] = pd.to_numeric(df["age"], errors="coerce")
+df["height"] = pd.to_numeric(df["height"], errors="coerce")
+df["weight"] = pd.to_numeric(df["weight"], errors="coerce")
+df.dropna(subset=["age", "height", "weight"], inplace=True)  # Remove invalid rows
 df["BMI"] = round((df["weight"] * 10000) / (df["height"] ** 2), 2)
 df_boy = df[df['gender'] == 'boy']
 df_girl = df[df['gender'] == 'girl']
