@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from extracted_code import find
 # Firebase URL
-FIREBASE_URL = "https://childmonitoring-951c3-default-rtdb.firebaseio.com/Users.json"
+FIREBASE_URL = "https://childmonitoring-951c3-default-rtdb.firebaseio.com/Crescere.json"
 
 # Set up the Streamlit page configuration
 st.set_page_config(page_title="Children's Health Monitoring", layout="wide")
